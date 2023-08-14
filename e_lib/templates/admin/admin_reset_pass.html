@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Admin Reset Pass</title>
+
+    <link rel="stylesheet" href="/static/admin/css/all.min.css" />
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="/static/css/styles.css"> -->
+    <style>
+        .loader-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #f0f0f0;
+            padding: 0.5rem;
+            opacity: 0.5;
+        }
+
+        .loader-img {
+            width: auto;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="big_loader"
+        class="d-none my-2 justify-content-center align-items-center loader-body w-100 h-100 position-fixed m-0 top-0 mt-0"
+        style="z-index: 999999">
+        <img src="/static/images/loader.gif" class="img-fluid" alt="" />
+    </div>
+
+    <div class="container-fluid">
+        <div class="row my-3">
+            <div class="col-md-6 col-sm-12">
+                <h2><b>Update Profile</b></h2>
+            </div>
+        </div>
+        {% if response == "no_pass_match" %}
+        <div class="col-md-12 col-sm-12">
+            <div class="alert alert-dangger">Password Didn't Matched</div>
+        </div>
+        {% elif response == "data_updated" %}
+        <div class="col-md-12 col-sm-12">
+            <div class="alert alert-success">Admin Data Updated</div>
+        </div>
+        {% endif %}
+
+        <form action="/admin/update_profile/{{ users.id }}" method="post">
+            <div class="my-3 form-floating">
+                <input type="text" placeholder="Enter User Name" id="admin_name" name="admin_name" class="form-control" value="{{ users.name }}" required>
+                <label for="admin_name">Enter User Name <span class="text-danger">*</span></label>
+            </div>
+            <div class="my-3 form-floating">
+                <input type="email" placeholder="Enter User Email" id="admin_email" name="admin_email" class="form-control" value="{{ users.email }}" required>
+                <label for="admin_email">Enter User Email <span class="text-danger">*</span></label>
+            </div>
+            <div class="my-3 form-floating">
+                <input type="tel" placeholder="Enter User Phone" id="admin_phone" name="admin_phone" class="form-control" value="{{ users.phone }}">
+                <label for="admin_phone">Enter User Phone <span class="text-danger">*</span></label>
+            </div>
+            <div class="my-3 form-floating">
+                <input type="pass" placeholder="Enter New Password" id="user_new_pass" name="user_new_pass" class="form-control">
+                <label for="user_new_pass">Enter New Password <span class="text-danger">*</span></label>
+            </div>
+            <div class="my-3 form-floating">
+                <input type="pass" placeholder="Confirm New Password" id="confirm_user_pass" name="confirm_user_pass" class="form-control">
+                <label for="confirm_user_pass">Confirm New Password <span class="text-danger">*</span></label>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Submit" class="btn btn-success">
+            </div>
+        </form>
+    </div>
+
+    <script src="/static/admin/js/all.min.js"></script>
+    <script src="/static/admin/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/admin/js/jquery.js"></script>
+    <script src="/static/admin/js/scripts.js"></script>
+</body>
+
+</html>

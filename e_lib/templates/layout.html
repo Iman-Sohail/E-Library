@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Book Library - Book Guide Author, Publication and Store</title>
+    <!-- CUSTOM STYLE -->
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" />
+    <!-- THEME TYPO -->
+    <link href="{{url_for('static', filename='css/themetypo.css')}}" rel="stylesheet" />
+    <!-- BOOTSTRAP -->
+    <link href="{{url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet" />
+    <!-- COLOR FILE -->
+    <link href="{{url_for('static', filename='css/color.css')}}" rel="stylesheet" />
+    <!-- FONT AWESOME -->
+    <link href="{{url_for('static', filename='css/font-awesome.min.css')}}" rel="stylesheet" />
+    <!-- BX SLIDER -->
+    <link href="{{url_for('static', filename='css/jquery.bxslider.css')}}" rel="stylesheet" />
+    <!-- Boostrap Slider -->
+    <link href="{{url_for('static', filename='css/bootstrap-slider.css')}}" rel="stylesheet" />
+    <!-- Widgets -->
+    <link href="{{url_for('static', filename='css/widget.css')}}" rel="stylesheet" />
+    <!-- Owl Carusel -->
+    <link href="{{url_for('static', filename='css/owl.carousel.css')}}" rel="stylesheet" />
+    <!-- responsive -->
+    <link href="{{url_for('static', filename='css/responsive.css')}}" rel="stylesheet" />
+    <!-- Component -->
+    <link href="{{url_for('static', filename='js/dl-menu/component.css')}}" rel="stylesheet" />
+    <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bookblock.css')}}" /> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+    
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <!--HEADER START-->
+    <header class="header-1">
+        <div class="top-strip">
+            <div class="container">
+                <div class="pull-left">
+                    <p>Welcome to E-Library</p>
+                </div>
+                <ul class="my-account">
+                    <!-- <li>
+                        <a href="#"><i class="fa fa-list"></i> Wishlist</a>
+                    </li> -->
+                    {% if 'user_name' in session %}
+                    <div class="dropdown">
+                        <a href="#" id="dropdownMenu1" data-toggle="dropdown" class="text-white">
+                            <i class="fa fa-user"></i> &nbsp;{{ session['user_name'] }}
+                        </a>
+                        <ul class="account dropdown-menu">
+                            <li><a class="text-dark ps-0" href="/change_password"><i class="fa fa-key"></i> &nbsp;Change Password</a></li>
+                            <li><a class="text-dark ps-0" href="/logout"><i class="fa fa-sign-out"></i> &nbsp;Logout</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <!-- <li>
+                        <a href="#"><i class="fa fa-compress"></i> Compare</a>
+                    </li> -->
+                    {% if 'user_name' not in session %}
+                    <li>
+                        <a href="/login"><i class="fa fa-sign-in"></i> Login</a>
+                    </li>
+                    <li>
+                        <a href="/#register_user"><i class="fa fa-user"></i> Register</a>
+                    </li>
+                    {% endif %}
+                    <!-- <li>
+                        <a href="#"><i class="fa fa-shopping-cart"></i> 0 Item</a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+        <div class="logo-container">
+            <div class="container">
+                <!--LOGO START-->
+                <div class="logo">
+                    <a href="/"><img src="{{url_for('static', filename='images/logo.png')}}" width="230px" alt="" /></a>
+                </div>
+                <!--LOGO END-->
+                <div class="kode-navigation">
+                    <ul>
+                        <li>
+                            <a href="/">Home</a>
+                            <!-- <ul>
+                                <li><a href="index-1.html">Home page 1</a></li>
+                            </ul> -->
+                        </li>
+
+                        <li><a href="/about-us">About Us</a></li>
+                        <li>
+                            <a href="/all_books">Our Books</a>
+                        </li>
+                        <li>
+                            <a href="#">Category</a>
+                            <ul>
+                                {% for categories in header_categories() %}
+                                <li><a href="/category/{{ categories.category_url }}">{{ categories.category_name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="last"><a href="contact-us">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div id="kode-responsive-navigation" class="dl-menuwrapper">
+                    <button class="dl-trigger">Open Menu</button>
+                    <ul class="dl-menu">
+                        <li class="menu-item kode-parent-menu">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="menu-item kode-parent-menu">
+                            <a href="/about-us">About Us</a></li>
+                        </li>
+                        <li class="menu-item kode-parent-menu">
+                            <a href="/all_books">Our Books</a>
+                        </li>
+                        <li class="menu-item kode-parent-menu">
+                            <a href="#">Category</a>
+                            <ul class="dl-submenu">
+                                {% for categories in header_categories() %}
+                                <li><a href="/category/{{ categories.category_url }}">{{ categories.category_name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="last"><a href="contact-us">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--HEADER END-->
+    
+    {% block content %} 
+    {% endblock %}
+
+    <section class="kode-uptodate">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>stay up-to-dated</h2>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="social-icons">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <form action="javascript:void(0);">
+                                <div class="alert alert-success d-none" id="sub-success-message">You have been subscribed Successfully.</div>
+                                
+                                <div id="sub-loader" class="d-none loader-body">
+                                    <img src="{{ url_for('static', filename='images/loader.gif') }}" class="loader-img" alt="Subscribe Email Loader">
+                                </div>
+    
+                                <div class="input-container">
+                                    <input type="email" placeholder="Your E-mail Address" id="sub-2" required/>
+                                    <button id="sub-btn-2">Subscribe</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--CONTENT END-->
+    <footer class="footer-3">
+        <div class="container">
+            <div class="row">
+                <!--CATEGORY WIDGET START-->
+                <div class="col-md-4 col-sm-6">
+                    <div class="widget widget-categories">
+                        <h2>Information</h2>
+                        <ul>
+                            <!-- <li><a href="#">Specials</a></li> -->
+                            <!-- <li><a href="#">New products</a></li> -->
+                            <!-- <li><a href="#">Best sellers</a></li> -->
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about-us">About us</a></li>
+                            <li><a href="/contact-us">Contact us</a></li>
+                            <!-- <li><a href="#">Terms of use</a></li> -->
+                            <!-- <li><a href="#">Sitemap</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+                <!--CATEGORY WIDGET END-->
+                <!--LATEST NEWS WIDGET START-->
+                <div class="col-md-4 col-sm-6">
+                    <div class="widget widget-latest-news">
+                        <h2>Latest Books</h2>
+                        <ul>
+                            {% for latest_book in footer_books() %}
+                            <li>
+                                <div class="kode-text">
+                                    <a href="{{ latest_book.book_url }}">
+                                        <p>{{ latest_book.book_name }}</p>
+                                        <p>{{ latest_book.timestamp.strftime("%d %B, %Y") }}</p>
+                                    </a>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!--LATEST NEWS WIDGET END-->
+
+                <!--NEWSLETTER START-->
+                <div class="col-md-4 col-sm-6">
+                    <div class="widget widget-contact-info">
+                        <h2>get in touch</h2>
+                        <ul>
+                            <li>
+                                <i class="fa fa-paper-plane"></i>
+                                <div class="kode-text">
+                                    <h4>Address</h4>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                        sed do eiusmod tempor.
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fa fa-phone"></i>
+                                <div class="kode-text">
+                                    <h4>phone Number</h4>
+                                    <p>+55(62) 55258-4570</p>
+                                    <p>+55(62) 55258-4570</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope-o"></i>
+                                <div class="kode-text">
+                                    <h4>Email Address</h4>
+                                    <a href="#">Info@elibrary.com</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--NEWSLETTER START END-->
+            </div>
+        </div>
+    </footer>
+    <div class="copyrights">
+        <div class="container">
+            <p>Copyrights © 2023 E-Library. All rights reserved</p>
+            <!-- <div class="cards"><img src="{{url_for('static', filename='images/cards.png')}}" alt="" /></div> -->
+        </div>
+    </div>
+    <!--WRAPPER END-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{url_for('static', filename='js/modernizr.custom.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.bxslider.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap-slider.js')}}"></script>
+    <script src="{{url_for('static', filename='js/waypoints.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.counterup.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/owl.carousel.js')}}"></script>
+    <script src="{{url_for('static', filename='js/dl-menu/modernizr.custom.js')}}"></script>
+    <script src="{{url_for('static', filename='js/dl-menu/jquery.dlmenu.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/hash.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='lib/booklet-lib.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquerypp.custom.js')}}"></script>
+    <!-- <script src="{{url_for('static', filename='js/jquery.bookblock.js')}}"></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="{{url_for('static', filename='js/functions.js')}}"></script>
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>
+</body>
+
+</html>

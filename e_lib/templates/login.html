@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!--BECOME A MEMBER START-->
+<section id="login_user">
+    <div class="container">
+        <!--SECTION HEADING START-->
+        <div class="section-heading-1">
+            <h2>Login</h2>
+            <p>Login to Read and Download books</p>
+            <div class="kode-icon"><i class="fa fa-sign-in"></i></div>
+        </div>
+        <!--SECTION HEADING END-->
+        <div class="row" style="display:flex;justify-content:center;text-align:center;">
+            <form action="javascript:void(0);" class="col-md-6">
+                <div class="col-md-12">
+                    <div class="input-container">
+                        <i class="fa fa-envelope-o"></i>
+                        <input type="email" placeholder="Your Email" id="login-user-email" required/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="input-container">
+                        <i class="fa fa-key"></i>
+                        <input type="password" placeholder="Your Password" id="login-user-pass" required/>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <button class="reg-btn" id="login-user-btn">Login</button>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div class="alert alert-success d-none" id="login-success-message">You have been Logged In Successfully.</div>
+                    
+                    <div id="login-loader" class="d-none loader-body">
+                        <img src="{{ url_for('static', filename='images/loader.gif') }}" class="loader-img" alt="Login Loader">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!--BECOME A MEMBER END-->
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{
+    "params": {
+        "local_server": "True",
+        "local_uri":"mysql://root:@localhost/e_lib",
+        "prod_uri":"mysql://root:@localhost/e_lib",
+        "username": "testmail@gmail.com",
+        "password": "testmailpassword",
+        "SECRET_KEY": "QWERTYasdfgh123",
+        "BOOK_IMAGE_FOLDER": "D:\\laragon\\www\\python_flask\\e_lib\\static\\images",
+        "BOOK_FILE_FOLDER": "D:\\laragon\\www\\python_flask\\e_lib\\static\\books",
+        "VIDEO_FILE_FOLDER": "D:\\laragon\\www\\python_flask\\e_lib\\static\\video"
+    }
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Add Posts</title>
+
+    <link rel="stylesheet" href="/static/admin/css/all.min.css" />
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="/static/css/styles.css"> -->
+    <style>
+        .loader-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #f0f0f0;
+            padding: 0.5rem;
+            opacity: 0.5;
+        }
+
+        .loader-img {
+            width: auto;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="big_loader"
+        class="d-none my-2 justify-content-center align-items-center loader-body w-100 h-100 position-fixed m-0 top-0 mt-0"
+        style="z-index: 999999">
+        <img src="/static/images/loader.gif" class="img-fluid" alt="" />
+    </div>
+
+    <div class="container-fluid">
+        <div class="row my-3">
+            <div class="col-md-6 col-sm-12">
+                <h2><b>Video</b></h2>
+            </div>
+            <div class="col-md-6 col-sm-12 text-end">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVideoModal">
+                    <i class="fas fa-plus"></i> Add Video
+                </button>
+            </div>
+        </div>
+        {% if response == "video_edited" %}
+        <div class="col-md-12 col-sm-12">
+            <div class="alert alert-success">Video Edited</div>
+        </div>
+        {% elif response == "video_added" %}
+        <div class="col-md-12 col-sm-12">
+            <div class="alert alert-success">Video Added</div>
+        </div>
+        {% endif %}
+
+        <!-- Modal -->
+        <div class="modal fade" id="addVideoModal" data-bs-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addVideoModalLabel">
+                            Add Video
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/admin/add_video" method="POST" id="add_video_form" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="my-3">
+                                <label class="mb-2" for="video_file">Upload Video File <span class="text-danger">*</span></label>
+                                <input type="file" id="video_file" name="video_file" class="form-control" accept="*/video">
+                            </div>
+                            <div class="my-3 form-floating">
+                                <select id="category_id" name="category_id" class="form-select">
+                                    <option value="">Select Category</option>
+                                    {% for category in categorys %}
+                                    <option value="{{ category.id }}">{{ category.category_name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="category_id">Category <span class="text-danger">*</span></label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Add Book
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Video Name</th>
+                    <th>Category Name</th>
+                    <th class="text-center">Edit Books</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% for video in videos %}
+                <tr>
+                    <th>{{ video.id }}</th>
+                    <th>{{ video.video_name }}</th>
+                    {% for category in categorys %}
+                        {% if category.id == video.category_id %}
+                            <th>{{ category.category_name }}</th>
+                        {% endif %}
+                    {% endfor %}
+                    <th class="text-center">
+                        <a href="/admin/edit_video/{{ video.id }}" class="btn btn-success"><i class="fas fa-pencil"></i> Edit</a>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/static/admin/js/all.min.js"></script>
+    <script src="/static/admin/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/admin/js/jquery.js"></script>
+    <script src="/static/admin/js/scripts.js"></script>
+</body>
+
+</html>

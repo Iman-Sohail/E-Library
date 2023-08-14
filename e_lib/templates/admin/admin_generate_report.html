@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Add Posts</title>
+
+    <link rel="stylesheet" href="/static/admin/css/all.min.css" />
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="/static/css/styles.css"> -->
+    <style>
+        .loader-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #f0f0f0;
+            padding: 0.5rem;
+            opacity: 0.5;
+        }
+
+        .loader-img {
+            width: auto;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="big_loader"
+        class="d-none my-2 justify-content-center align-items-center loader-body w-100 h-100 position-fixed m-0 top-0 mt-0"
+        style="z-index: 999999">
+        <img src="/static/images/loader.gif" class="img-fluid" alt="" />
+    </div>
+
+    <div class="container-fluid">
+        <div class="row my-3">
+            <div class="col-md-6 col-sm-12">
+                <h2><b>Report</b></h2>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Categories</th>
+                    <th>Total Books</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% set total_record = 1 %}
+                {% for category, count in category_book_counts %}
+                    <tr>
+                        <th>{{ total_record }}</th>
+                        <th>{{ category.category_name }}</th>
+                        <th>{{ count }}</th>
+                    </tr>
+                    {% set total_record = total_record + 1 %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/static/admin/js/all.min.js"></script>
+    <script src="/static/admin/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/admin/js/jquery.js"></script>
+    <script src="/static/admin/js/scripts.js"></script>
+</body>
+
+</html>

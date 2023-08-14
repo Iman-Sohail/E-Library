@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Add Posts</title>
+
+    <link rel="stylesheet" href="/static/admin/css/all.min.css" />
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="/static/css/styles.css"> -->
+    <style>
+        .loader-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #f0f0f0;
+            padding: 0.5rem;
+            opacity: 0.5;
+        }
+
+        .loader-img {
+            width: auto;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="big_loader"
+        class="d-none my-2 justify-content-center align-items-center loader-body w-100 h-100 position-fixed m-0 top-0 mt-0"
+        style="z-index: 999999">
+        <img src="/static/images/loader.gif" class="img-fluid" alt="" />
+    </div>
+
+    <div class="container-fluid">
+        <div class="row my-3">
+            <div class="col-md-6 col-sm-12">
+                <h2><b>Books</b></h2>
+            </div>
+            <div class="col-md-6 col-sm-12 text-end">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">
+                    <i class="fas fa-plus"></i> Add Books
+                </button>
+            </div>
+        </div>
+        {% if response == "book_edited" %}
+        <div class="col-md-12 col-sm-12">
+            <div class="alert alert-success">Book Edited</div>
+        </div>
+        {% elif response == "book_added" %}
+        <div class="col-md-12 col-sm-12">
+            <div class="alert alert-success">Book Added</div>
+        </div>
+        {% endif %}
+
+        <!-- Modal -->
+        <div class="modal fade" id="addBookModal" data-bs-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addBookModalLabel">
+                            Add Books
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/admin/add_book" method="POST" id="add_book_form" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="my-3 form-floating">
+                                <input type="text" placeholder="Enter Book Name" id="book_name" name="book_name" class="form-control" required>
+                                <label for="book_name">Enter Book Name <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="my-3">
+                                <label class="mb-2" for="upload_book_image">Upload Book Image <span class="text-danger">*</span></label>
+                                <input type="file" id="upload_book_image" name="upload_book_image" class="form-control" accept="image/png, image/jpeg" required>
+                            </div>
+                            <div class="my-3">
+                                <label class="mb-2" for="upload_book">Upload Book <span class="text-danger">*</span></label>
+                                <input type="file" id="upload_book" name="upload_book" class="form-control" accept=".pdf" required>
+                            </div>
+                            <div class="my-3 form-floating">
+                                <textarea type="text" placeholder="Enter Book Description" id="book_description" name="book_description" class="form-control h-auto" rows="5" cols="30" required></textarea>
+                                <label for="book_description">Enter Book Description <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="my-3 form-floating">
+                                <select id="book_author" name="book_author" class="form-select" required>
+                                    <option value="">Select Author</option>
+                                    {% for author in authors %}
+                                    <option value="{{ author.id }}">{{ author.author_name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="book_author">Author <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="my-3 form-floating">
+                                <select id="book_publisher" name="book_publisher" class="form-select" required>
+                                    <option value="">Select Publisher</option>
+                                    {% for publisher in publishers %}
+                                    <option value="{{ publisher.id }}">{{ publisher.publisher_name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="book_publisher">Publisher <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="my-3 form-floating">
+                                <select id="book_category" name="book_category" class="form-select" required>
+                                    <option value="">Select Category</option>
+                                    {% for category in categorys %}
+                                    <option value="{{ category.id }}">{{ category.category_name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="book_category">Category <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="my-3 form-floating">
+                                <select id="is_downloadable" name="is_downloadable" class="form-select" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0" selected>No</option>
+                                </select>
+                                <label for="is_downloadable">Is Downloadable <span class="text-danger">*</span></label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Add Book
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Book Name</th>
+                    <th>Book Url</th>
+                    <th>Book Description</th>
+                    <th>Is Downloadable</th>
+                    <th class="text-center">Edit Books</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% for book in books %}
+                <tr>
+                    <th>{{ book.id }}</th>
+                    <th>{{ book.book_name }}</th>
+                    <th>{{ book.book_url }}</th>
+                    <th>
+                        <textarea class="form-control" cols="30" rows="3">{{ book.book_description }}</textarea>
+                    </th>
+                    {% if book.is_downloadable == 0 %}
+                        <th>No</th>
+                    {% else %}
+                        <th>Yes</th>
+                    {% endif %}
+                    <th class="text-center">
+                        <a href="/admin/edit_book/{{ book.id }}/{{ book.book_url }}" class="btn btn-success"><i class="fas fa-pencil"></i> Edit</a>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/static/admin/js/all.min.js"></script>
+    <script src="/static/admin/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/admin/js/jquery.js"></script>
+    <script src="/static/admin/js/scripts.js"></script>
+</body>
+
+</html>

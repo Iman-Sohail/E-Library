@@ -1,0 +1,75 @@
+<div class="search-section">
+    <div class="container">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#Book" aria-controls="Book" role="tab" data-toggle="tab">Book</a>
+            </li>
+            <li role="presentation">
+                <a href="#Authors" aria-controls="Authors" role="tab" data-toggle="tab">Authors</a>
+            </li>
+            <li role="presentation">
+                <a href="#Publishers" aria-controls="Publishers" role="tab" data-toggle="tab">Publishers</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Book">
+                <div class="form-container">
+                    <form class="row" method="GET" action="/search">
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" name="book_name" id="book_name" placeholder="Enter Book Name" required />
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <!-- <input type="text" placeholder="Category Name" /> -->
+                            <select name="book_category" id="book_category" required>
+                                <option value="">Select Category</option>
+                                {% for categories in search_category() %}
+                                <option value="{{ categories.category_url }}">{{ categories.category_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <button type="submit">Search Book</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Authors">
+                <div class="form-container">
+                    <form class="row" method="GET" action="/search">
+                        <div class="col-md-6 col-sm-12">
+                            <select name="authors_name" id="authors_name" required>
+                                <option value="">Select Authors</option>
+                                {% for authors in search_authors() %}
+                                <option value="{{ authors.author_url }}">{{ authors.author_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <button type="submit">Search Author</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Publishers">
+                <div class="form-container">
+                    <form class="row" method="GET" action="/search">
+                        <div class="col-md-6 col-sm-12">
+                            <select name="publishers_name" id="publishers_name" required>
+                                <option value="">Select Publishers</option>
+                                {% for publishers in search_publishers() %}
+                                <option value="{{ publishers.publisher_url }}">{{ publishers.publisher_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <button type="submit">Search Publisher</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

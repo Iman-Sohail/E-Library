@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Add Posts</title>
+
+    <link rel="stylesheet" href="/static/admin/css/all.min.css" />
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="/static/css/styles.css"> -->
+    <style>
+        .loader-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #f0f0f0;
+            padding: 0.5rem;
+            opacity: 0.5;
+        }
+
+        .loader-img {
+            width: auto;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="big_loader"
+        class="d-none my-2 justify-content-center align-items-center loader-body w-100 h-100 position-fixed m-0 top-0 mt-0"
+        style="z-index: 999999">
+        <img src="/static/images/loader.gif" class="img-fluid" alt="" />
+    </div>
+
+    <div class="container-fluid">
+        <div class="row my-3">
+            <div class="col-md-6 col-sm-12">
+                <h2><b>Editing Video</b></h2>
+            </div>
+        </div>
+        
+        <form action="/admin/edit_video/{{ video.id }}" method="POST" id="edit_video_form" enctype="multipart/form-data">
+            <div class="modal-body">
+                <div class="my-3">
+                    <label class="mb-2" for="video_file">Upload Book <span class="text-danger">*</span></label>
+                    <a href="/static/video/{{ video.video_name }}" target="_blank">Click To See Current Video</a>
+                    <input type="file" id="video_file" name="video_file" class="form-control" accept="video/*">
+                </div>
+                <div class="my-3 form-floating">
+                    <select id="category_id" name="category_id" class="form-select">
+                        <option value="">Select Category</option>
+                        {% for category in categorys %}
+                        <option value="{{ category.id }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="category_id">Select Category <span class="text-danger">*</span></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                    Update Video
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/static/admin/js/all.min.js"></script>
+    <script src="/static/admin/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/admin/js/jquery.js"></script>
+    <script src="/static/admin/js/scripts.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#category_id').val('{{ video.category_id }}');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <!--BANNER START-->
+    <div class="kode-inner-banner">
+    	<div class="kode-page-heading">
+        	<h2>All Books</h2>
+        </div>
+    </div>
+    <!--BUT NOW START-->
+    {% include "search.html" %}
+    <!--BUT NOW END-->
+    <!--CONTENT START-->
+    <div class="kode-content padding-tb-50">
+        <!--TOP AUTHERS START-->
+        <div class="container">
+            <div class="kode-product-filter">
+                
+            </div>
+            <div class="row">
+                <!--PRODUCT GRID START-->
+                {% for book in books %}
+                    <div class="col-md-3 col-sm-6" style="height: 450px;">
+                        <div class="best-seller-pro">
+                            <figure>
+                                <img src="/static/images/{{ book.book_image }}" alt="{{ book.book_name }}" width="478" height="318" class="img img-reponsive">
+                            </figure>
+                            <div class="kode-text">
+                                <h3>{{ book.book_name|truncate(20, False, '...') }}</h3>
+                            </div>
+                            <div class="kode-caption">
+                                <h3>{{ book.book_name }}</h3>
+                                <!-- <div class="rating">
+                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                </div> -->
+                                {% for publisher in publishers %}
+                                    {% if book.publisher_id == publisher.id %}
+                                        <p>{{ publisher.publisher_name }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                                <!-- <p class="price">$224.20</p> -->
+                                <br>
+                                <a href="/book/{{ book.book_url }}" class="add-to-cart">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!--PRODUCT GRID END-->
+            </div>
+            <!--PAGINATION START-->
+            <!-- <nav>
+              <ul class="pagination">
+                <li>
+                  <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                  <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav> -->
+            <!--PAGINATION END-->
+        </div>
+        <!--TOP AUTHERS END-->
+   </div> 
+
+{% endblock %}

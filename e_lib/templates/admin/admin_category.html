@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Add Posts</title>
+
+    <link rel="stylesheet" href="/static/admin/css/all.min.css" />
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="/static/css/styles.css"> -->
+    <style>
+        .loader-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #f0f0f0;
+            padding: 0.5rem;
+            opacity: 0.5;
+        }
+
+        .loader-img {
+            width: auto;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="big_loader"
+        class="d-none my-2 justify-content-center align-items-center loader-body w-100 h-100 position-fixed m-0 top-0 mt-0"
+        style="z-index: 999999">
+        <img src="/static/images/loader.gif" class="img-fluid" alt="" />
+    </div>
+
+    <div class="container-fluid">
+        <div class="row my-3">
+            <div class="col-md-6 col-sm-12">
+                <h2><b>Categorys</b></h2>
+            </div>
+            <div class="col-md-6 col-sm-12 text-end">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                    <i class="fas fa-plus"></i> Add Category
+                </button>
+            </div>
+        </div>
+        {% if response == "category_deleted" %}
+        <div class="col-md-12 col-sm-12">
+            <div class="alert alert-success">Category Deleted</div>
+        </div>
+        {% elif response == "category_added" %}
+        <div class="col-md-12 col-sm-12">
+            <div class="alert alert-success">Category Added</div>
+        </div>
+        {% endif %}
+
+        <!-- Modal -->
+        <div class="modal fade" id="addCategoryModal" data-bs-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addCategoryModalLabel">
+                            Add Category
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/admin/add_category" method="POST" id="add_category_form">
+                        <div class="modal-body">
+                            <div class="my-3 form-floating">
+                                <input type="text" placeholder="Enter Category Name" id="category_name" name="category_name" class="form-control" required>
+                                <label for="category_name">Enter Category Name <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="my-3 form-floating">
+                                <textarea type="text" placeholder="Enter Category Description" id="category_description" name="category_description" class="form-control h-auto" rows="5" cols="30" required></textarea>
+                                <label for="category_description">Enter Category Description <span class="text-danger">*</span></label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Add Category
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Category Name</th>
+                    <th>Category Url</th>
+                    <th>Category Description</th>
+                    <th class="text-center">Delete Category</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% for category in categorys %}
+                <tr>
+                    <th>{{ category.id }}</th>
+                    <th>{{ category.category_name }}</th>
+                    <th>{{ category.category_url }}</th>
+                    <th>
+                        <textarea class="form-control" cols="30" rows="3">{{ category.category_description }}</textarea>
+                    </th>
+                    <th class="text-center">
+                        <a href="/delete_category/{{ category.id }}" class="btn btn-danger"><i class="fas fa-trash"></i>Delete</a>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/static/admin/js/all.min.js"></script>
+    <script src="/static/admin/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/admin/js/jquery.js"></script>
+    <script src="/static/admin/js/scripts.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Add Posts</title>
+
+    <link rel="stylesheet" href="/static/admin/css/all.min.css" />
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="/static/css/styles.css"> -->
+    <style>
+        .loader-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #f0f0f0;
+            padding: 0.5rem;
+            opacity: 0.5;
+        }
+
+        .loader-img {
+            width: auto;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="big_loader"
+        class="d-none my-2 justify-content-center align-items-center loader-body w-100 h-100 position-fixed m-0 top-0 mt-0"
+        style="z-index: 999999">
+        <img src="/static/images/loader.gif" class="img-fluid" alt="" />
+    </div>
+
+    <div class="container-fluid">
+        <div class="row my-3">
+            <div class="col-md-6 col-sm-12">
+                <h2><b>Editing: {{ books.book_name }}</b></h2>
+            </div>
+        </div>
+        {% if response == "book_edited" %}
+        <div class="col-md-12 col-sm-12">
+            <div class="alert alert-success">Book Edited</div>
+        </div>
+        {% elif response == "book_added" %}
+        <div class="col-md-12 col-sm-12">
+            <div class="alert alert-success">Book Added</div>
+        </div>
+        {% endif %}
+
+        
+        <form action="/admin/edit_book/{{ books.id }}/{{ books.book_url }}" method="POST" id="edit_book_form" enctype="multipart/form-data">
+            <div class="modal-body">
+                <div class="my-3 form-floating">
+                    <input type="text" placeholder="Enter Book Name" id="book_name" name="book_name" class="form-control" value="{{ books.book_name }}">
+                    <label for="book_name">Enter Book Name <span class="text-danger">*</span></label>
+                </div>
+                <div class="my-3">
+                    <label class="mb-2" for="upload_book_image">Upload Book Image <span class="text-danger">*</span></label>
+                    <a href="/static/images/{{ books.book_image }}" target="_blank">Click To See Book Image</a>
+                    <input type="file" id="upload_book_image" name="upload_book_image" class="form-control" accept="image/png, image/jpeg">
+                </div>
+                <div class="my-3">
+                    <label class="mb-2" for="upload_book">Upload Book <span class="text-danger">*</span></label>
+                    <a href="/static/books/{{ books.book_file }}" target="_blank">Click To See Book PDF</a>
+                    <input type="file" id="upload_book" name="upload_book" class="form-control" accept=".pdf">
+                </div>
+                <div class="my-3 form-floating">
+                    <textarea type="text" placeholder="Enter Book Description" id="book_description" name="book_description" class="form-control h-auto" rows="5" cols="30">{{ books.book_description }}</textarea>
+                    <label for="book_description">Enter Book Description <span class="text-danger">*</span></label>
+                </div>
+                <div class="my-3 form-floating">
+                    <select id="book_author" name="book_author" class="form-select">
+                        <option value="">Select Author</option>
+                        {% for author in authors %}
+                        <option value="{{ author.id }}">{{ author.author_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="book_author">Author <span class="text-danger">*</span></label>
+                </div>
+                <div class="my-3 form-floating">
+                    <select id="book_publisher" name="book_publisher" class="form-select">
+                        <option value="">Select Publisher</option>
+                        {% for publisher in publishers %}
+                        <option value="{{ publisher.id }}">{{ publisher.publisher_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="book_publisher">Publisher <span class="text-danger">*</span></label>
+                </div>
+                <div class="my-3 form-floating">
+                    <select id="book_category" name="book_category" class="form-select">
+                        <option value="">Select Category</option>
+                        {% for category in categorys %}
+                        <option value="{{ category.id }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="book_category">Category <span class="text-danger">*</span></label>
+                </div>
+                <div class="my-3 form-floating">
+                    <select id="is_downloadable" name="is_downloadable" class="form-select">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                    <label for="is_downloadable">Is Downloadable <span class="text-danger">*</span></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                    Edit Book
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/static/admin/js/all.min.js"></script>
+    <script src="/static/admin/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/admin/js/jquery.js"></script>
+    <script src="/static/admin/js/scripts.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#is_downloadable').val('{{ books.is_downloadable }}');
+            $('#book_author').val('{{ books.author_id }}');
+            $('#book_publisher').val('{{ books.publisher_id }}');
+            $('#book_category').val('{{ books.category_id }}');
+        });
+    </script>
+</body>
+
+</html>

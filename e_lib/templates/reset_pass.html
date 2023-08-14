@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!--BECOME A MEMBER START-->
+<section id="reset_pass">
+    <div class="container">
+        <!--SECTION HEADING START-->
+        <div class="section-heading-1">
+            <h2>Reset Pass</h2>
+            <p>Reset Password</p>
+            <div class="kode-icon"><i class="fa fa-key"></i></div>
+        </div>
+        <!--SECTION HEADING END-->
+        <div class="row" style="display:flex;justify-content:center;text-align:center;">
+            <form action="update-user-pass" class="col-md-6" method="POST">
+                <div class="col-md-12">
+                    <div class="input-container">
+                        <i class="fa fa-key"></i>
+                        <input type="text" placeholder="Enter New Password" name="reset-user-pass" id="reset-user-pass" required/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="input-container">
+                        <i class="fa fa-key"></i>
+                        <input type="text" placeholder="Confirm New Password" name="confirm-reset-user-pass" id="confirm-reset-user-pass" required/>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <button class="reg-btn" id="reset-pass-user-btn">Reset Password</button>
+                </div>
+                {% if response == "passwordDidn'tMatched" %}
+                    <div class="col-md-12 col-sm-12">
+                        <div class="alert alert-danger">Password Didn't Matched</div>
+                    </div>
+                {% elif response == 'passwordupdated' %}
+                    <div class="col-md-12 col-sm-12">
+                        <div class="alert alert-success">Password Updated Succssfully</div>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</section>
+<!--BECOME A MEMBER END-->
+
+{% endblock %}

@@ -1,0 +1,88 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+
+<!--WRAPPER START-->
+<div class="wrapper kode-header-class-3">
+    <!--BANNER START-->
+    <div class="kode-inner-banner">
+    	<div class="kode-page-heading">
+        	<h2>Photo Gallery</h2>
+        </div>
+    </div>
+    <!--BANNER END-->
+	<!--BUT NOW START-->
+    {% include "search.html" %}
+    <!--BUT NOW END-->
+    <!--CONTENT START-->
+   <div class="kode-content padding-tb-50">
+    	<div class="container">
+            <!--LOCATION MAP START-->
+            <div class="location-map">
+                <div class="map-canvas" id="map-canvas"></div>
+            </div>
+            <!--LOCATION MAP END-->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="comment-form">
+                        <div class="row">
+							<form method="post" class="comments-form" action="/contact-submit">
+								<div class="col-md-4 col-sm-4">
+									<div class="input-container">
+										<input type="text" id="name" name="name" class="required" placeholder="Enter Name *" required>
+										<label for="name">Name</label>
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4">
+									<div class="input-container">
+										<input type="text" id="email" name="email" class="required email" placeholder="Enter Email *" required>
+										<label for="email">Email</label>
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4">
+									<div class="input-container">
+										<input type="text" id="phone" name="phone" placeholder="Enter Phone">
+										<label for="phone">Phone</label>
+									</div>
+								</div>
+								<div class="col-md-12 col-sm-12">
+									<div class="input-container">
+										<textarea name="message" id="message" placeholder="Enter your comment" required></textarea>
+										<label for="message">Message *</label>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<p class="kd-button kf_submit widget-newslatter pull-right">
+										<input class="thbg-color" type="submit" value="Submit Comments">
+									</p>
+								</div>
+								{% if response == 'success' %}
+								<div class="col-md-12 mt-3">
+									<div class="alert alert-success">Form Has Been Sent Successfully</div>
+								</div>
+								{% endif %}
+							</form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 sidebar">
+                    <div class="widget widget-text">
+                        <h2>get in touch</h2>
+                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident</p>
+                    </div>
+                    <div class="widget widget-text">
+                        <h2>Information</h2>
+                        <ul>
+                           <li><i class="fa fa-map-marker"></i>Nemo enim ipsam voluptatem quia voluptas sit</li>
+                           <li><i class="fa fa-phone"></i>(25) 82 800 80</li>
+                           <li><i class="fa fa-envelope"></i><a href="mailto:info@librarytheme.com">info@librarytheme.com</a></li> 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--WRAPPER END-->
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+    <!--BANNER START-->
+    <div class="kode-inner-banner">
+    	<div class="kode-page-heading">
+        	<h2>Error 404</h2>
+            <!-- <ol class="breadcrumb">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Library</a></li>
+              <li class="active">Error 404</li>
+            </ol> -->
+        </div>
+    </div>
+    <!--BANNER END-->
+    <!--BUT NOW START-->
+    <div class="search-section">
+        <div class="container">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#Book" aria-controls="Book" role="tab" data-toggle="tab">Book</a>
+                </li>
+                <li role="presentation">
+                    <a href="#Authors" aria-controls="Authors" role="tab" data-toggle="tab">Authors</a>
+                </li>
+                <li role="presentation">
+                    <a href="#Publishers" aria-controls="Publishers" role="tab" data-toggle="tab">Publishers</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="Book">
+                    <div class="form-container">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4">
+                                <input type="text" placeholder="Enter Book Name" />
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <!-- <input type="text" placeholder="Category Name" /> -->
+                                <select name="book-category" id="book-category">
+                                    <option value="">Select Category</option>
+                                    {% for categories in category %}
+                                    <option value="{{ categories.category_url }}">{{ categories.category_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <button>Search Book</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="Authors">
+                    <div class="form-container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <input type="text" placeholder="Enter Author Name" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <button>Search Author</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="Publishers">
+                    <div class="form-container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <input type="text" placeholder="Enter Publisher Name" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <button>Search Publisher</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--BUT NOW END-->
+    <!--CONTENT START-->
+   <div class="kode-content padding-tb-50">
+    	<div class="container">
+            <div class="error-404">
+                <h2>Whoops!!!</h2>
+                <div class="page-404">
+                    <p>404</p>
+                    <span>The page can not be found</span>
+                </div>
+                <p>We could not found the page you are looking for. Please try another page and verify the URL you have entered.</p>
+                <a href="/" class="go-back">Go back to home page</a>
+            </div>   
+        </div>    
+    <!--CONTENT END-->
+    </div> 	
+    
+{% endblock %}
